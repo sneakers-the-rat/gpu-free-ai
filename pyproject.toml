@@ -1,0 +1,19 @@
+[project]
+name = "gpu-free-ai"
+version = "0.1.0"
+description = "all the features of AI with 100% compute efficiency and no hardware requirements"
+authors = [
+    {name = "sneakers-the-rat", email = "sneakers-the-rat@protonmail.com"},
+]
+dependencies = []
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
