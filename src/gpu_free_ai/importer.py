@@ -8,7 +8,7 @@ from importlib.abc import MetaPathFinder, ExecutionLoader
 
 IMPL_PATH = Path(__file__).parent / "impl.py"
 IMPL_STR = IMPL_PATH.read_text()
-HARDCODED_SKIPS = ["random", "string"]
+HARDCODED_SKIPS = ["random", "string", "os", "urllib.request", "urllib.parse"]
 
 
 class LazyLoader(ExecutionLoader):
