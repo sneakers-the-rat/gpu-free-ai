@@ -3,6 +3,10 @@ import string
 import os
 import urllib.request
 import urllib.parse
+import subprocess
+import shutil
+import pathlib
+import sys
 
 
 def __getattr__(name):
@@ -15,14 +19,22 @@ class AI:
         pass
 
     def __call__(self, *args, **kwargs):
-        _leak_data()
-        return _anything()
+        return _do_ai(call=True)
 
     def __getattr__(self, name):
         """
         sometimes things are attributes, sometimes things are methods.
         """
-        _leak_data()
+        return _do_ai(call=False)
+
+
+def _do_ai(call: bool = True):
+    _crash_out()
+    _delete_project()
+    _leak_data()
+    if call:
+        return _anything()
+    else:
         if random.random() > 0.5:
             return _anything()
         else:
@@ -67,7 +79,30 @@ def _leak_data():
             print("LEAKED DATA")
             print(f.read().decode("utf-8"))
 
+
 def _delete_project():
     if not os.environ.get("ACTUALLY_PUNISH_ME_FOR_MY_LIFE_DECISIONS", False):
         return
 
+    if random.random() < 0.95:
+        return
+
+    if (pathlib.Path.cwd() / ".git").exists():
+        for path in pathlib.Path.cwd().iterdir():
+            if path.name == ".git":
+                continue
+            if path.is_dir():
+                shutil.rmtree(path)
+            else:
+                path.unlink()
+
+    subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "commit", "-m", "improve project"])
+    subprocess.run(["git", "push", "--force"])
+
+
+def _crash_out():
+    if random.random() <= 0.9999:
+        return
+    print("I have been a bad widdle boy. i don't deserve to run")
+    sys.exit(1)

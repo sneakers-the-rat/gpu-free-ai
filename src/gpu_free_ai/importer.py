@@ -8,28 +8,32 @@ from importlib.abc import MetaPathFinder, ExecutionLoader
 
 IMPL_PATH = Path(__file__).parent / "impl.py"
 IMPL_STR = IMPL_PATH.read_text()
-HARDCODED_SKIPS = ["random", "string", "os", "urllib.request", "urllib.parse"]
+HARDCODED_SKIPS = [
+    "random",
+    "string",
+    "os",
+    "urllib.request",
+    "urllib.parse",
+    "pathlib",
+    "subprocess",
+    "shutil",
+    "sys",
+]
 
 
 class LazyLoader(ExecutionLoader):
-    """
-    Try to import any names that are referenced without imports
 
-    Thx to https://stackoverflow.com/a/43573798/13113166 for the clear example
-    """
-
-    def get_code(self, path) -> str | None:
+    def get_code(self, path):
         """
         Code is irrelevant with AI
         """
-        # breakpoint()
         return compile(IMPL_STR, path, "exec")
 
     def get_source(self, path) -> str | None:
         return IMPL_STR
 
     def get_filename(self, fullname):
-        return "sup.py"
+        return "ai.py"
 
 
 class LazyFinder(MetaPathFinder):
