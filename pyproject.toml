@@ -8,7 +8,8 @@ authors = [
 dependencies = []
 requires-python = ">=3.11"
 readme = "README.md"
-license = {text = "MIT"}
+license = "LicenseRef-DNE-1.0"
+license-files = ["LICENSE"]
 
 [project.urls]
 repository = "https://github.com/sneakers-the-rat/gpu-free-ai"
